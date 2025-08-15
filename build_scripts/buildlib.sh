@@ -112,6 +112,7 @@ cp -v /root/work//artefacts//android/libs/x86_64/libjni-ranzodium.so /root/work/
 
 apt-get install openjdk-17-jdk-headless -y --force-yes
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+unset ANDROID_SDK_ROOT
 
 cd /root/work/app/
 find . -name '*.aar' -exec rm -v {} \; || echo "NO ERR"
