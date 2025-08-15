@@ -51,7 +51,7 @@ public class Ranzodium
      * Note that an upper_bound < 2 leaves only a single element to be chosen, namely 0
      * 
      */
-    public static native long get_1random(long upper_bound);
+    public static native long get_random(long upper_bound);
 
     /*
      * this is used to load the native library on
