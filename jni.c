@@ -99,7 +99,7 @@ JNIEnv *AttachJava()
 
 
 JNIEXPORT jstring JNICALL
-Java_com_zoffcc_applications_ranzodium_MainClass_getNativeLibGITHASH(JNIEnv *env, jobject thiz)
+Java_com_zoffcc_applications_ranzodium_Ranzodium_getNativeLibGITHASH(JNIEnv *env, jobject thiz)
 {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunreachable-code-return"
@@ -121,13 +121,13 @@ Java_com_zoffcc_applications_ranzodium_MainClass_getNativeLibGITHASH(JNIEnv *env
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_zoffcc_applications_ranzodium_MainClass_libsodium_1version(JNIEnv *env, jobject thiz)
+Java_com_zoffcc_applications_ranzodium_Ranzodium_libsodium_1version(JNIEnv *env, jobject thiz)
 {
     return (*env)->NewStringUTF(env, sodium_version_string());
 }
 
 JNIEXPORT jint JNICALL
-Java_com_zoffcc_applications_ranzodium_MainClass_init(JNIEnv *env, jobject thiz)
+Java_com_zoffcc_applications_ranzodium_Ranzodium_init(JNIEnv *env, jobject thiz)
 {
     if (sodium_init() < 0) {
         /* panic! the library couldn't be initialized; it is not safe to use */
@@ -148,7 +148,7 @@ Java_com_zoffcc_applications_ranzodium_MainClass_init(JNIEnv *env, jobject thiz)
  * 
  */
 JNIEXPORT jlong JNICALL
-Java_com_zoffcc_applications_ranzodium_MainClass_get_1random(JNIEnv *env, jobject thiz, jlong upper_bound)
+Java_com_zoffcc_applications_ranzodium_Ranzodium_get_1random(JNIEnv *env, jobject thiz, jlong upper_bound)
 {
     if (upper_bound < 2) {
         // do not use "upper_bound < 2" input values!
