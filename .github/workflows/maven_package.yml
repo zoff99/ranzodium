@@ -129,9 +129,7 @@ jobs:
     - name: build_maven_pkg
       run: |
            pwd
-           export JAVA_HOME=/opt/hostedtoolcache/jdk/8.0.452/x64
-           sudo bash -c "cp -av /home/runner/work/ranzodium/ranzodium/stub* /root/work/"
-           sudo bash -c "export JAVA_HOME=/opt/hostedtoolcache/jdk/8.0.452/x64;cd /home/runner/work/ranzodium/ranzodium/build_dir/;../build_scripts/buildlib.sh '../'"
+           sudo bash -c "cd /home/runner/work/ranzodium/ranzodium/build_dir/;../build_scripts/buildlib.sh '../'"
 
     - name: acls_maven_pkg
       run: |
