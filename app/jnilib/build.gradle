@@ -26,8 +26,8 @@ apply plugin: 'com.android.library'
  *
  *
  */
-def maven_artefact_version = '1.0.0'
-project.ext.set("maven_artefact_int_version", 10000)
+def maven_artefact_version = '1.0.1'
+project.ext.set("maven_artefact_int_version", 10001)
 /*
  *
  *
