@@ -1,7 +1,5 @@
 #! /bin/bash
 
-
-
 echo "starting ..."
 
 START_TIME=$SECONDS
@@ -11,7 +9,6 @@ numcpus_=$(nproc)
 quiet_=1
 full="1"
 download_full="1"
-build_yasm="0"
 ## ----------------------
 
 ## ----------------------
@@ -236,10 +233,8 @@ if [ "$full""x" == "1x" ]; then
     sha256sum -c ndk.zip.sha256 || exit 1
     # --- verfiy NDK package ---
     redirect_cmd unzip ndk.zip
-    set -x
     rm -Rf "$_NDK_"
     mv -v "$_ANDROID_NDK_UNPACKDIR_" "$_NDK_"
-    set +x
 
 
     echo 'export ARTEFACT_DIR="$AND_ARTEFACT_DIR";export PATH="$AND_PATH";export PKG_CONFIG_PATH="$AND_PKG_CONFIG_PATH";export READELF="$AND_READELF";export GCC="$AND_GCC";export CC="$AND_CC";export CXX="$AND_CXX";export CPPFLAGS="";export LDFLAGS="";export TOOLCHAIN_ARCH="$AND_TOOLCHAIN_ARCH";export TOOLCHAIN_ARCH2="$AND_TOOLCHAIN_ARCH2"' > $_HOME_/pp
@@ -276,8 +271,6 @@ if [ "$full""x" == "1x" ]; then
     cd "$_BLD_";make install
     export CFLAGS=" -g -O3 "
     # --- LIBSODIUM ---
-
-
 
 fi
 
@@ -410,8 +403,8 @@ if [ "$full""x" == "1x" ]; then
     ANDROID_BUILD_TOOLS_VERSION=25.0.0
     redirect_cmd $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
 
-    echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
-    echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+    echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint"
+    echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint"
     echo y | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;27.0.3"
     echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-27"
     # -- why is this not just called "cmake" ? --
