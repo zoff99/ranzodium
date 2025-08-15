@@ -114,6 +114,9 @@ apt-get install openjdk-17-jdk-headless -y --force-yes
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 unset ANDROID_SDK_ROOT
 
+$ANDROID_HOME/tools/bin/sdkmanager --update
+echo y | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;27.0.3"
+
 cd /root/work/app/
 find . -name '*.aar' -exec rm -v {} \; || echo "NO ERR"
 ./gradlew build
