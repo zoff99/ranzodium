@@ -104,7 +104,6 @@ fi
 export ORIG_PATH_=$PATH
 
 
-
 #### ARM build ###############################################
 
 
@@ -255,6 +254,8 @@ if [ "$full""x" == "1x" ]; then
     echo "PATH=""$PATH"
 
     mkdir -p "$PKG_CONFIG_PATH"
+    type -a python
+    head -20 $_NDK_/build/tools/make_standalone_toolchain.py
     redirect_cmd $_NDK_/build/tools/make_standalone_toolchain.py --arch "$TOOLCHAIN_ARCH" \
         --install-dir "$_toolchain_"/arm-linux-androideabi --api 21 --force
 
@@ -288,12 +289,36 @@ echo "-------- compiler version --------"
 echo ""
 echo ""
 
+if [ ! -e /tmp/nohash.txt ] ; then
+pushd "$_GITREPO_HOME_"
+git_hash_for_jni=$(git rev-parse --verify --short=8 HEAD 2>/dev/null|tr -dc '[A-Fa-f0-9]' 2>/dev/null)
+echo "XX:""$git_hash_for_jni"":YY"
+popd
+fi
+
+cd $_s_/; export V=1;$GCC -O3 -fPIC -g -shared \
+    $WARNS \
+    $FORTIFY_FLAGS \
+    $JNI_CUSTOM_FLAGS \
+    -DGIT_HASH=\"$git_hash_for_jni\" \
+    -funwind-tables -Wl,--no-merge-exidx-entries -Wl,-soname,libjni-ranzodium.so \
+    "$_HOME_"/jni.c -o libjni-ranzodium.so \
+    -std=gnu99 -I"$_toolchain_"/arm-linux-androideabi/sysroot/usr/include \
+    "$_toolchain_"/arm-linux-androideabi/sysroot/usr/lib/libsodium.a \
+    -lm -landroid || exit 1
+
+res=$?
+
 echo "... done"
 
 if [ $res -ne 0 ]; then
     echo "ERROR"
     exit 1
 fi
+
+ls -hal $_s_/libjni-ranzodium.so
+mkdir -p $CIRCLE_ARTIFACTS/android/libs/armeabi/
+cp -av $_s_/libjni-ranzodium.so $CIRCLE_ARTIFACTS/android/libs/armeabi/
 
 #### ARM build ###############################################
 
@@ -480,6 +505,27 @@ echo "-------- compiler version --------"
 echo ""
 echo ""
 
+if [ ! -e /tmp/nohash.txt ] ; then
+pushd "$_GITREPO_HOME_"
+git_hash_for_jni=$(git rev-parse --verify --short=8 HEAD 2>/dev/null|tr -dc '[A-Fa-f0-9]' 2>/dev/null)
+echo "XX:""$git_hash_for_jni"":YY"
+popd
+fi
+
+cd $_s_/; export V=1;$GCC -O3 -fPIC -g -shared \
+    $WARNS \
+    $FORTIFY_FLAGS \
+    $JNI_CUSTOM_FLAGS \
+    $ASAN_CLANG_FLAGS \
+    -DGIT_HASH=\"$git_hash_for_jni\" \
+    -funwind-tables -Wl,-soname,libjni-ranzodium.so \
+    "$_HOME_"/jni.c -o libjni-ranzodium.so \
+    -std=gnu99 -I"$_toolchain_"/"$AND_TOOLCHAIN_ARCH"/sysroot/usr/include \
+    "$_toolchain_"/"$AND_TOOLCHAIN_ARCH"/sysroot/usr/lib/libsodium.a \
+    -lm -landroid || exit 1
+
+res=$?
+
 echo "... done"
 
 if [ $res -ne 0 ]; then
@@ -487,6 +533,9 @@ if [ $res -ne 0 ]; then
     exit 1
 fi
 
+ls -hal $_s_/libjni-ranzodium.so
+mkdir -p $CIRCLE_ARTIFACTS/android/libs/arm64-v8a/
+cp -av $_s_/libjni-ranzodium.so $CIRCLE_ARTIFACTS/android/libs/arm64-v8a/
 
 #### ARM64 build ###############################################
 
@@ -655,6 +704,28 @@ echo ""
 echo ""
 echo "compiling jni ..."
 
+if [ ! -e /tmp/nohash.txt ] ; then
+pushd "$_GITREPO_HOME_"
+git_hash_for_jni=$(git rev-parse --verify --short=8 HEAD 2>/dev/null|tr -dc '[A-Fa-f0-9]' 2>/dev/null)
+echo "XX:""$git_hash_for_jni"":YY"
+popd
+fi
+
+cd $_s_/; export V=1;$GCC -O3 -fPIC -g -shared -Wall -Wextra \
+    -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function \
+    -Wno-pointer-sign -Wno-unused-but-set-variable \
+    $WARNS \
+    $FORTIFY_FLAGS \
+    $JNI_CUSTOM_FLAGS \
+    -DGIT_HASH=\"$git_hash_for_jni\" \
+    -funwind-tables -Wl,--no-merge-exidx-entries -Wl,-soname,libjni-ranzodium.so \
+    "$_HOME_"/jni.c -o libjni-ranzodium.so \
+    -std=gnu99 -I"$_toolchain_"/x86/sysroot/usr/include \
+    "$_toolchain_"/x86/sysroot/usr/lib/libsodium.a \
+    -lm -landroid || exit 1
+
+res=$?
+
 echo "... done"
 
 
@@ -663,6 +734,9 @@ if [ $res -ne 0 ]; then
     exit 1
 fi
 
+ls -hal $_s_/libjni-ranzodium.so
+mkdir -p $CIRCLE_ARTIFACTS/android/libs/x86/
+cp -av $_s_/libjni-ranzodium.so $CIRCLE_ARTIFACTS/android/libs/x86/
 
 #### x86 build ###############################################
 
@@ -831,6 +905,28 @@ echo ""
 echo ""
 echo "compiling jni ..."
 
+if [ ! -e /tmp/nohash.txt ] ; then
+pushd "$_GITREPO_HOME_"
+git_hash_for_jni=$(git rev-parse --verify --short=8 HEAD 2>/dev/null|tr -dc '[A-Fa-f0-9]' 2>/dev/null)
+echo "XX:""$git_hash_for_jni"":YY"
+popd
+fi
+
+cd $_s_/; export V=1;$GCC -O3 -fPIC -g -shared -Wall -Wextra \
+    -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function \
+    -Wno-pointer-sign -Wno-unused-but-set-variable \
+    $WARNS \
+    $FORTIFY_FLAGS \
+    $JNI_CUSTOM_FLAGS \
+    -DGIT_HASH=\"$git_hash_for_jni\" \
+    -funwind-tables -Wl,--no-merge-exidx-entries -Wl,-soname,libjni-ranzodium.so \
+    "$_HOME_"/jni.c -o libjni-ranzodium.so \
+    -std=gnu99 -I"$_toolchain_"/"$AND_TOOLCHAIN_ARCH"/sysroot/usr/include \
+    -lm -landroid || exit 1
+
+res=$?
+
+
 echo "... done"
 
 
@@ -839,8 +935,19 @@ if [ $res -ne 0 ]; then
     exit 1
 fi
 
+ls -hal $_s_/libjni-ranzodium.so
+mkdir -p $CIRCLE_ARTIFACTS/android/libs/x86_64/
+cp -av $_s_/libjni-ranzodium.so $CIRCLE_ARTIFACTS/android/libs/x86_64/
 
 #### x86_64 build ###############################################
+
+file $CIRCLE_ARTIFACTS/android/libs/armeabi/libjni-ranzodium.so
+file $CIRCLE_ARTIFACTS/android/libs/arm64-v8a/libjni-ranzodium.so
+
+ls -hal $CIRCLE_ARTIFACTS/android/libs/armeabi/libjni-ranzodium.so || exit 1
+ls -hal $CIRCLE_ARTIFACTS/android/libs/arm64-v8a/libjni-ranzodium.so || exit 1
+ls -hal $CIRCLE_ARTIFACTS/android/libs/x86/libjni-ranzodium.so || exit 1
+ls -hal $CIRCLE_ARTIFACTS/android/libs/x86_64/libjni-ranzodium.so || exit 1
 
 pwd
 

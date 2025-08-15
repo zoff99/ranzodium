@@ -54,9 +54,18 @@ RUN mkdir -p /root/work/ \
 RUN mkdir -p /root/work/build_dir/
 RUN mkdir -p /root/work/build_scripts/
 
+RUN apt-get update && \
+        apt-get -y --force-yes install \
+            python2
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python2 1
+
 COPY __temp__deps.sh /root/work/build_scripts/deps.sh
 RUN chmod a+rx /root/work/build_scripts/deps.sh
 
+RUN mkdir -p /home/runner/work/ranzodium/ranzodium
 COPY ./__temp__src/ /root/work/
+COPY ./__temp__src/ /home/runner/work/ranzodium/ranzodium/
 
-RUN id -a; pwd; ls -al /root/work/; cd /root/work/build_dir/ && bash ../build_scripts/deps.sh || cat /root/work/build/build/config.log
+# RUN touch /tmp/nohash.txt ; chmod a+r /tmp/nohash.txt
+
+RUN id -a; pwd; ls -al /root/work/; cd /root/work/build_dir/ && bash ../build_scripts/deps.sh # || cat /root/work/build/build/config.log

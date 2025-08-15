@@ -97,10 +97,65 @@ JNIEnv *AttachJava()
     return java;
 }
 
-JNIEXPORT jint JNICALL
-Java_com_zoffcc_applications_ranzodium_MainClass_get_1random(JNIEnv *env, jobject thiz)
+
+JNIEXPORT jstring JNICALL
+Java_com_zoffcc_applications_ranzodium_MainClass_getNativeLibGITHASH(JNIEnv *env, jobject thiz)
 {
-    return 3;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunreachable-code-return"
+
+#if defined(GIT_HASH)
+    if (strlen(GIT_HASH) < 2)
+    {
+        return (*env)->NewStringUTF(env, "00000002");
+    }
+    else
+    {
+        return (*env)->NewStringUTF(env, GIT_HASH);
+    }
+#else
+    return (*env)->NewStringUTF(env, "00000001");
+#endif
+
+#pragma GCC diagnostic pop
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_zoffcc_applications_ranzodium_MainClass_libsodium_1version(JNIEnv *env, jobject thiz)
+{
+    return (*env)->NewStringUTF(env, sodium_version_string());
+}
+
+JNIEXPORT jint JNICALL
+Java_com_zoffcc_applications_ranzodium_MainClass_init(JNIEnv *env, jobject thiz)
+{
+    if (sodium_init() < 0) {
+        /* panic! the library couldn't be initialized; it is not safe to use */
+        return -1;
+    }
+    return 0;
+}
+
+/*
+ *
+ * The randombytes_uniform() function returns an unpredictable value
+ * between 0 and upper_bound (excluded).
+ * 
+ * Unlike randombytes_random() % upper_bound, it guarantees a uniform distribution of
+ * the possible output values even when upper_bound is not a power of 2.
+ * 
+ * Note that an upper_bound < 2 leaves only a single element to be chosen, namely 0
+ * 
+ */
+JNIEXPORT jlong JNICALL
+Java_com_zoffcc_applications_ranzodium_MainClass_get_1random(JNIEnv *env, jobject thiz, jlong upper_bound)
+{
+    if (upper_bound < 2) {
+        // do not use "upper_bound < 2" input values!
+        return (jlong)0;
+    }
+    uint32_t rnd_value = randombytes_uniform((const uint32_t)upper_bound);
+    return (jlong)rnd_value;
 }
 
 
