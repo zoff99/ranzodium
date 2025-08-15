@@ -126,6 +126,13 @@ Java_com_zoffcc_applications_ranzodium_Ranzodium_libsodium_1version(JNIEnv *env,
     return (*env)->NewStringUTF(env, sodium_version_string());
 }
 
+/*
+ * 
+ * The sodium_init() function must be called before any other function.
+ * It is safe to call sodium_init() multiple times or from different threads;
+ * it will immediately return 1 without doing anything if the library has already been initialized.
+ * 
+ */
 JNIEXPORT jint JNICALL
 Java_com_zoffcc_applications_ranzodium_Ranzodium_init(JNIEnv *env, jobject thiz)
 {
