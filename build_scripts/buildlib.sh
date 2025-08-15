@@ -126,6 +126,17 @@ pwd
 
 ls -alR ~/.m2/repository/com/zoffcc/applications/ranzodium/ranzodium-jni-lib/ || exit 1
 
+cd /root/work/app/
+mkdir tmp/
+cd tmp/
+mkdir -p .m2/repository/com/zoffcc/applications/ranzodium/ranzodium-jni-lib
+cd .m2/repository/com/zoffcc/applications/ranzodium/ranzodium-jni-lib/
+cp -av ~/.m2/repository/com/zoffcc/applications/ranzodium/ranzodium-jni-lib/* .
+cd /root/work/app/
+cd tmp/
+zip -r /root/work/artefacts/local_maven_ranzodium_jni.zip ./
+
+ls -hal /root/work/artefacts/local_maven_ranzodium_jni.zip
 
 ls -al $CIRCLE_ARTIFACTS/
 
