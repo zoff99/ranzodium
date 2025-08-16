@@ -922,6 +922,7 @@ cd $_s_/; export V=1;$GCC -O3 -fPIC -g -shared -Wall -Wextra \
     -funwind-tables -Wl,--no-merge-exidx-entries -Wl,-soname,libjni-ranzodium.so \
     "$_HOME_"/jni.c -o libjni-ranzodium.so \
     -std=gnu99 -I"$_toolchain_"/"$AND_TOOLCHAIN_ARCH"/sysroot/usr/include \
+    "$_toolchain_"/"$AND_TOOLCHAIN_ARCH"/sysroot/usr/lib/libsodium.a \
     -lm -landroid || exit 1
 
 res=$?
@@ -941,6 +942,7 @@ cp -av $_s_/libjni-ranzodium.so $CIRCLE_ARTIFACTS/android/libs/x86_64/
 
 #### x86_64 build ###############################################
 
+
 file $CIRCLE_ARTIFACTS/android/libs/armeabi/libjni-ranzodium.so
 file $CIRCLE_ARTIFACTS/android/libs/arm64-v8a/libjni-ranzodium.so
 
@@ -948,6 +950,11 @@ ls -hal $CIRCLE_ARTIFACTS/android/libs/armeabi/libjni-ranzodium.so || exit 1
 ls -hal $CIRCLE_ARTIFACTS/android/libs/arm64-v8a/libjni-ranzodium.so || exit 1
 ls -hal $CIRCLE_ARTIFACTS/android/libs/x86/libjni-ranzodium.so || exit 1
 ls -hal $CIRCLE_ARTIFACTS/android/libs/x86_64/libjni-ranzodium.so || exit 1
+
+nm $CIRCLE_ARTIFACTS/android/libs/armeabi/libjni-ranzodium.so|grep sodium_version_string|grep T || exit 1
+nm $CIRCLE_ARTIFACTS/android/libs/arm64-v8a/libjni-ranzodium.so|grep sodium_version_string|grep T || exit 1
+nm $CIRCLE_ARTIFACTS/android/libs/x86/libjni-ranzodium.so|grep sodium_version_string|grep T || exit 1
+nm $CIRCLE_ARTIFACTS/android/libs/x86_64/libjni-ranzodium.so|grep sodium_version_string|grep T || exit 1
 
 pwd
 
