@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/text_window"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="xxxxxxx"
-        android:textSize="22sp" />
-</RelativeLayout>
+        android:text="..."
+        android:textSize="18sp"
+        android:layout_weight="1"
+        tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/black"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="match_parent"
+        android:scaleType="fitXY"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:gravity="center"
+        tools:ignore="ContentDescription" />
+</LinearLayout>
 
 
