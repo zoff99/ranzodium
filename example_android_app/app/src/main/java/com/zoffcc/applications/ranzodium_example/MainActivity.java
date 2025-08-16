@@ -37,9 +37,9 @@ public class MainActivity extends Activity
     protected void onResume()
     {
         super.onResume();
-        final String jni_version_string = Ranzodium.getNativeLibGITHASH();
+        final String jni_version_hash = Ranzodium.getNativeLibGITHASH();
         final String libsodium_version_string = Ranzodium.libsodium_version();
-        text_view.setText(jni_version_string + "\n" +
+        text_view.setText(jni_version_hash + " - " +
                           libsodium_version_string + "\n" +
                           "random value = " + Ranzodium.get_random(10_000));
         text_view.setVisibility(View.VISIBLE);
@@ -97,7 +97,25 @@ public class MainActivity extends Activity
                 largest_result = (int) result[i];
             }
         }
+        // find largest result
         Log.i(TAG, "largest_result:" + largest_result);
+
+        // find lowest result
+        int lowest_result = largest_result;
+        for (int i=0;i<range;i++)
+        {
+            if (result[i] < lowest_result)
+            {
+                lowest_result = (int) result[i];
+            }
+        }
+        // find lowest result
+        Log.i(TAG, "lowest_result:" + lowest_result);
+
+        text_view.setText(text_view.getText() + "\n" +
+                          "low: " + lowest_result +
+                          " high: " + largest_result +
+                          " delta: " + (largest_result - lowest_result));
 
         // put results into image
         final int w = range;
