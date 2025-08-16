@@ -2,6 +2,15 @@
 
 libsodium secure random numbers for Android
 
+Status
+=
+[![Android CI](https://github.com/zoff99/ranzodium/actions/workflows/app_startup.yml/badge.svg?branch=master)](https://github.com/zoff99/ranzodium/actions/workflows/app_startup.yml)
+
+Latest Automated Screenshots
+=
+
+<img src="https://github.com/zoff99/ranzodium/releases/download/nightly/android_screen01_21.png" width="120">&nbsp;<img src="https://github.com/zoff99/ranzodium/releases/download/nightly/android_screen01_29.png" width="120">&nbsp;<img src="https://github.com/zoff99/ranzodium/releases/download/nightly/android_screen01_33.png" width="120">&nbsp;<img src="https://github.com/zoff99/ranzodium/releases/download/nightly/android_screen01_35.png" width="120">
+
 <br>
 Any use of this project's code by GitHub Copilot, past or present, is done
 without our permission.  We do not consent to GitHub's use of this project's
