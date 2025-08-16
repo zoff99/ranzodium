@@ -92,7 +92,7 @@ jobs:
             sleep 20
             adb exec-out screencap -p > ~/android_screen01_${{ matrix.api-level }}.png
             ls -al ~/android_screen01_${{ matrix.api-level }}.png
-            adb logcat -d |grep -i 'trifa'
+            adb logcat -d |grep -i 'Ranzodium'
             adb logcat -d > ~/adb_log.txt
             sleep 2
 
