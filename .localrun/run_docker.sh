@@ -69,8 +69,8 @@ mkdir -p /root/work/deploy/
 mkdir -p /root/.android/
 
 rsync -avz --exclude=".localrun" --exclude="local.properties" ./build_scripts/buildlib.sh /root/work/build_scripts/buildlib.sh
-redirect_cmd rsync -az --exclude=".localrun" --exclude="local.properties" ./stub /root/work/
-redirect_cmd rsync -az --exclude=".localrun" --exclude="local.properties" ./stubaar /root/work/
+## redirect_cmd rsync -az --exclude=".localrun" --exclude="local.properties" ./stub /root/work/
+## redirect_cmd rsync -az --exclude=".localrun" --exclude="local.properties" ./stubaar /root/work/
 
 cd /root/work/
 mkdir -p build_dir
