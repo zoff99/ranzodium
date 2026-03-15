@@ -14,7 +14,7 @@ download_full="1"
 ## ----------------------
 FORTIFY_FLAGS="" # "-D_FORTIFY_SOURCE=2"
 JNI_CUSTOM_FLAGS="-Wl,-z,max-page-size=16384" # align for 16kB
-_LIBSODIUM_VERSION_="1.0.20-RELEASE"
+_LIBSODIUM_VERSION_="1.0.21-RELEASE"
 _ANDROID_SDK_FILE_="sdk-tools-linux-4333796.zip"
 _ANDROID_SDK_HASH_="92ffee5a1d98d856634e8b71132e8a95d96c83a63fde1099be3d86df3106def9"
 
