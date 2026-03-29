@@ -1,6 +1,10 @@
 # Ranzodium
 
-libsodium secure random numbers for Android
+libsodium secure random numbers for Android<br>
+<br>
+Ranzodium is a specialized Android library designed to provide cryptographically secure random numbers by bridging the high-performance libsodium library to the Android ecosystem. It addresses the need for reliable, audited entropy sources in mobile applications by exposing libsodium's randombytes_uniform functionality through a Java Native Interface (JNI) wrapper.<br>
+<br>
+The project encompasses the entire lifecycle of this bridge: from the automated cross-compilation of native C dependencies for multiple Android ABIs to the packaging of an Android Archive (AAR) and a demonstration application that visualizes the distribution of the generated randomness.
 
 Status
 =
