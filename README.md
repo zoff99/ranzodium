@@ -5,6 +5,8 @@ libsodium secure random numbers for Android
 Status
 =
 [![Android CI](https://github.com/zoff99/ranzodium/actions/workflows/app_startup.yml/badge.svg?branch=master)](https://github.com/zoff99/ranzodium/actions/workflows/app_startup.yml)
+[![Liberapay](https://img.shields.io/liberapay/goal/zoff.svg?logo=liberapay)](https://liberapay.com/zoff/donate)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/zoff99/ranzodium)
 
 Latest Automated Screenshots
 =
